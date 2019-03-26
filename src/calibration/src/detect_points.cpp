@@ -300,7 +300,6 @@ bool DetectPoints::detectPlane()
         ransac.getModelCoefficients(coeff);
 
         float angle = fabs(pcl::rad2deg(acos(coeff.head(3).dot(ground_norm))));
-        //std::cout << "angle = " << angle << std::endl;
         if(angle < TOLERANCE_ANGLE || fabs(angle - 180.0) < TOLERANCE_ANGLE)
         {
             filters.setInputCloud(laser_ptr_);
@@ -455,14 +454,12 @@ bool DetectPoints::checkEdgePoints()
 //计算标定板角点
 bool DetectPoints::computeEdgePoints()
 {
-    std::cout << "computeEdgePoints start " << lines_.size() << std::endl;
     for(int i = 0; i < lines_.size(); i ++)
     {
         for(int j = i + 1; j < lines_.size(); j ++)
         {
             //两根线之间的夹角
             float angle = fabs(pcl::rad2deg(acos(lines_[i].tail(3).dot(lines_[j].tail(3)))));
-            std::cout << "angle : " << angle << std::endl;
             //判断垂直
             if(fabs(angle - 90.0) < TOLERANCE_ANGLE)
             {
@@ -519,7 +516,6 @@ bool DetectPoints::computeEdgePoints()
     sort(points_.begin(), points_.end(), compareVectorCol2);
     sort(points_.begin() + 1, points_.end(), compareVectorCol1);
 
-    std::cout << "computeEdgePoints finished" << std::endl;
     return checkEdgePoints();
 }
 
