@@ -1,15 +1,6 @@
 <launch>
-    <node pkg="calibration" name="lidar_detect_1" type="lidar_detect" output="screen">
-        <remap from="/velodyne" to="/velodyne_points_200"/>
-        <remap from="/corner" to="/corner_200"/>
-    </node>
-    <node pkg="calibration" name="lidar_detect_2" type="lidar_detect" output="screen">
-        <remap from="/velodyne" to="/velodyne_points_202"/>
-        <remap from="/corner" to="/corner_202"/>
-    </node>
-
-    <node pkg="calibration" name="calibration" type="calibration" output="screen">
-        <remap from="/corner1" to="/corner_200"/>
-        <remap from="/corner2" to="/corner_202"/>
-    </node>
+    <param name="top_lidar_topic" value="/cti/sensor/rslidar/PointCloud2"/>
+    <param name="front_lidar_topic" value="/cti/sensor/rslidar/Bpearl_PointCloud2"/>
+    <param name="front_scans" value="32"/>
+    <node pkg="calibration" name="calibration" type="calibration_node" output="screen"/>
 </launch>
